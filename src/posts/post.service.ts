@@ -7,13 +7,11 @@ export class PostService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findDaily(id: number, start: Date, end: Date) {
-    end.setHours(end.getHours() + 24);
-
     return await this.prisma.post.groupBy({
       by: ['memberId', 'createDate'],
       where: {
         memberId: id,
-        createdAt: { gte: start, lt: end },
+        createDate: { gte: start, lt: end },
       },
       _count: {
         _all: true,
