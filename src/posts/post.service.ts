@@ -11,7 +11,7 @@ export class PostService {
       by: ['memberId', 'createDate'],
       where: {
         memberId: id,
-        createDate: { gte: start, lt: end },
+        createDate: { gte: start, lte: end },
       },
       _count: {
         _all: true,
