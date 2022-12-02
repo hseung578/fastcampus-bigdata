@@ -42,4 +42,6 @@ model Post {
   contents String
   createDate DateTime @db.Date
   createdAt DateTime @default(now())
+
+  @@index([memberId, createDate])
 }
