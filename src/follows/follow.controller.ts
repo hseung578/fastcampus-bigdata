@@ -8,7 +8,7 @@ import {
   ConflictException,
   Get,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 
 @Controller('follow')
 @ApiTags('Follow')
@@ -19,6 +19,18 @@ export class FollowController {
   ) {}
 
   @Post(':fromId/:toId')
+  @ApiParam({
+    name: 'fromId',
+    type: Number,
+    required: true,
+    example: 1,
+  })
+  @ApiParam({
+    name: 'toId',
+    type: Number,
+    required: true,
+    example: 2,
+  })
   async follow(@Param('fromId') fromId: number, @Param('toId') toId: number) {
     const fromMember = await this.memberService.find(fromId);
     const toMember = await this.memberService.find(toId);
@@ -34,6 +46,12 @@ export class FollowController {
   }
 
   @Get('member/:fromId')
+  @ApiParam({
+    name: 'fromId',
+    type: Number,
+    required: true,
+    example: 1,
+  })
   getFollows(@Param('fromId') fromId: number) {
     return this.followService.findAll(fromId);
   }
