@@ -1,4 +1,8 @@
-import { CreatePostDto } from './dtos/create-post.dto';
+import { TimelineService } from './../timelines/timeline.service';
+import {
+  CreatePostByPullDto,
+  CreatePostByPushDto,
+} from './dtos/create-post.dto';
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PostService } from './post.service';
@@ -14,11 +18,19 @@ export class PostController {
   constructor(
     private readonly postService: PostService,
     private readonly followService: FollowService,
+    private readonly timelineService: TimelineService,
   ) {}
 
-  @Post()
-  createPost(@Body() dto: CreatePostDto) {
-    return this.postService.create(dto);
+  @Post('pull')
+  createPostByPull(@Body() dto: CreatePostByPullDto) {
+    return this.postService.createByPull(dto);
+  }
+
+  @Post('push')
+  async createPostByPush(@Body() dto: CreatePostByPushDto) {
+    const followers = await this.followService.findAllwithToId(dto.memberId);
+    const memberIdList = followers.map((follower) => follower.fromMemberId);
+    return this.postService.createByPush(memberIdList, dto);
   }
 
   @Get('members/:memberId')
@@ -69,10 +81,10 @@ export class PostController {
     @Param('memberId') memberId: number,
     @Query() queryParams: GetPostsCursortQuery,
   ) {
-    return this.postService.findAllByCursor([memberId], { ...queryParams });
+    return this.postService.findAllByPullCursor([memberId], { ...queryParams });
   }
 
-  @Get('members/:memberId/timelines')
+  @Get('members/:memberId/timelines/pull')
   @ApiParam({
     name: 'memberId',
     type: Number,
@@ -90,13 +102,42 @@ export class PostController {
     required: true,
     example: 10,
   })
-  async getTimelines(
+  async getTimelinesByPull(
     @Param('memberId') memberId: number,
     @Query() queryParams: GetPostsCursortQuery,
   ) {
-    const follow = await this.followService.findAll(memberId);
-    const memberIdList = follow.map((follow) => follow.toMemberId);
-    return this.postService.findAllByCursor(memberIdList, { ...queryParams });
+    const followings = await this.followService.findAllwithFromId(memberId);
+    const memberIdList = followings.map((following) => following.toMemberId);
+    return this.postService.findAllByPullCursor(memberIdList, {
+      ...queryParams,
+    });
+  }
+
+  @Get('members/:memberId/timelines/push')
+  @ApiParam({
+    name: 'memberId',
+    type: Number,
+    required: true,
+    example: 1,
+  })
+  @ApiQuery({
+    name: 'cursor',
+    type: Number,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    required: true,
+    example: 10,
+  })
+  async getTimelinesByPush(
+    @Param('memberId') memberId: number,
+    @Query() queryParams: GetPostsCursortQuery,
+  ) {
+    const timelines = await this.timelineService.findAll(memberId);
+    const posts = timelines.map((timeline) => timeline.postId);
+    return this.postService.findAllByPushCursor(posts, { ...queryParams });
   }
 
   @Get('/daily-count')

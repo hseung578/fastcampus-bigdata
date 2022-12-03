@@ -16,7 +16,10 @@ model Member {
   nickname String @unique
   nicknames MemberNicknameHistory[]
   posts Post[]
+  followeing Follow[] @relation("follower")
+  followedBy Follow[] @relation("following")
   birthday DateTime
+  timelines Timeline[]
   createdAt DateTime @default(now())
 }
 
@@ -29,10 +32,13 @@ model MemberNicknameHistory {
 }
 
 model Follow {
-  id  Int @id @default(autoincrement())
+  fromMember Member @relation("follower",fields: [fromMemberId], references: [id])
   fromMemberId Int
+  toMember Member @relation("following",fields: [toMemberId], references: [id])
   toMemberId Int
   createdAt DateTime @default(now())
+
+   @@id([fromMemberId, toMemberId])
 }
 
 model Post {
@@ -41,7 +47,18 @@ model Post {
   memberId Int
   contents String
   createDate DateTime @db.Date
+  timelines Timeline[]
   createdAt DateTime @default(now())
 
   @@index([memberId, createDate])
+}
+
+model Timeline {
+  member Member @relation(fields: [memberId], references: [id])
+  memberId Int
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  createdAt DateTime @default(now())
+
+  @@id([memberId, postId])
 }

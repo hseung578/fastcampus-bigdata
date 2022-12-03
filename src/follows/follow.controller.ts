@@ -53,6 +53,6 @@ export class FollowController {
     example: 1,
   })
   getFollows(@Param('fromId') fromId: number) {
-    return this.followService.findAll(fromId);
+    return this.followService.findAllwithFromId(fromId);
   }
 }

@@ -11,9 +11,15 @@ export class FollowService {
     });
   }
 
-  async findAll(fromId: number) {
+  async findAllwithFromId(fromId: number) {
     return await this.prisma.follow.findMany({
       where: { fromMemberId: fromId },
+    });
+  }
+
+  async findAllwithToId(toId: number) {
+    return await this.prisma.follow.findMany({
+      where: { toMemberId: toId },
     });
   }
 
