@@ -12,16 +12,6 @@ services:
       - 3306:3306
     volumes:
       - mysql-fdata:/var/lib/db
-  mongodb:
-    image: mongo:latest
-    container_name: fast-mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo-fdata:/var/lib/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
   redis:
     container_name: fast-redis
     image: redis:latest

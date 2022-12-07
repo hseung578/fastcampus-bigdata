@@ -1,5 +1,4 @@
 import { Module, CacheModule, CacheStore } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import * as redisStore from 'cache-manager-redis-store';
 import { RedisClientOptions } from 'redis';
 import { AppController } from './app.controller';
@@ -11,7 +10,6 @@ import { TimelineModule } from './timelines/timeline.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017'),
     CacheModule.register<RedisClientOptions>({
       store: redisStore as unknown as CacheStore,
       url: 'redis://localhost:6379',
