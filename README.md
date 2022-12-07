@@ -2,11 +2,9 @@
 
 fastcampus 대용량 데이터 & 트래픽 처리
 
-nestjs + prisma + mysql
-
+nestjs + prisma + mysql + mongodb + redis
 
 post pagination with cursor and offset
-
 
 timeline push model vs pull model trade-off
 
@@ -19,9 +17,16 @@ facebook: pull / twitter: push
 ## Installation
 
 ```bash
+// mysql
 $ yarn install
+$ sudo docker-compose up
+$ yarn start:dev
 $ npx prisma migrate dev
 $ npx prisma db seed
+
+// mongodb mongodb atlas
+$ yarn install
+$ yarn start:dev
 ```
 
 prisma seed : fake data 100만개
