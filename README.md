@@ -4,9 +4,13 @@ fastcampus 대용량 데이터 & 트래픽 처리
 
 nestjs + prisma + mysql + mongodb + redis
 
+mongodb: mongodb atlas 이용
+
+mysql, redis: 
+
 post pagination with cursor and offset
 
-timeline push model vs pull model trade-off
+timeline push model vs pull model (trade-off)
 
 push: 공간복잡도 (timeline table 필요) write 성능저하
 
