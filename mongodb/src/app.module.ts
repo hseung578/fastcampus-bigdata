@@ -1,10 +1,12 @@
-import { Module, CacheModule, CacheStore } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { UserModule } from './users/user.module';
-import { PostModule } from './posts/post.module';
+import { AccountModule } from './accounts/acount.module';
+import { ListingsAndReviewsModule } from './listings-and-reviews/listings-and-reviews.module';
+import { PlanetModule } from './planets/planet.module';
+import { SaleModule } from './sales/sale.module';
 
 @Module({
-  imports: [UserModule, PostModule],
+  imports: [AccountModule, ListingsAndReviewsModule, PlanetModule, SaleModule],
   controllers: [AppController],
 })
 export class AppModule {}

@@ -10,13 +10,163 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  title  String
-  userId String @db.ObjectId
+// mongodb atlas sample data
+// sample_airbnb
+model listingsAndReviews {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  listingUrl  String  @map("listing_url")
+  name  String  
+  summary String
+  space String 
+  description String
+  neighborhoodOverview String @map("neighborhood_overview")
+  notes String
+  transit String
+  access String
+  interaction String
+  houseRules String @map("house_rules")
+  propertyType String  @map("property_type")
+  roomType String  @map("room_type")
+  bedType String  @map("bed_type")
+  minimumNights  String  @map("minimum_nights")
+  maximumNights  String  @map("maximum_nights")
+  cancellationPolicy String  @map("cancellation_policy")
+  lastScraped  DateTime  @map("last_scraped")
+  calendarLastScraped  DateTime  @map("calendar_last_scraped")
+  firstReview  DateTime?  @map("first_review")
+  lastReview DateTime?  @map("last_review")
+  accommodates  Int 
+  bedrooms  Int?
+  beds  Int?
+  number_of_reviews Int
+  bathrooms Unsupported("Decimal128")
+  amenities String[]
+  price Unsupported("Decimal128")
+  securityDeposit  Unsupported("Decimal128") @map("security_deposit")
+  cleaningFee  Unsupported("Decimal128") @map("cleaning_fee")
+  extraPeople  Unsupported("Decimal128") @map("extra_people")
+  guestsIncluded Unsupported("Decimal128") @map("guests_included")
+  images  images
+  host  host
+  address address
+  availability  availability
+  reviewScores reviewScores  @map("review_scores")
+  reviews reviews[]
 }
 
-model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String
+type images {
+  thumbnailUrl String  @map("thumbnail_url")
+  mediumUrl  String  @map("medium_url")
+  pictureUrl String  @map("picture_url")
+  xl_pictureUrl  String  @map("xl_picture_url")
+}
+
+type host {
+  hostId String  @map("host_id")
+  hostUrl String @map("host_url")
+  hostName String @map("host_name")
+  hostLocation String @map("host_location")
+  hostAbout  String  @map("host_about")
+  hostResponseTime  String?  @map("host_response_time")
+  hostThumbnailUrl  String  @map("host_thumbnail_url")
+  hostPictureUrl  String  @map("host_picture_url")
+  hostNeighbourhood String @map("host_neighbourhood")
+  hostResponseRate  Int? @map("host_response_rate")
+  hostIsSuperhost Boolean @map("host_is_superhost")
+  hostHasProfilePic  Boolean @map("host_has_profile_pic")
+  hostIdentityVerified  Boolean @map("host_identity_verified")
+  hostListingsCount Int @map("host_listings_count")
+  hostTotalListingsCount Int @map("host_total_listings_count")
+  hostVerifications  String[]  @map("host_verifications")
+}
+
+type address {
+  street  String
+  suburb  String
+  governmentArea String  @map("government_area")
+  market  String
+  country String
+  countryCode  String  @map("country_code")
+  location  location
+}
+
+type location {
+  type  String
+  coordinates Unsupported("Decimal128")[]
+  isLocationExact Boolean @map("is_location_exact")
+}
+
+type availability {
+  availability_30 Int
+  availability_60 Int
+  availability_90 Int
+  availability_365 Int
+}
+
+type reviewScores {
+  reviewScoresAccuracy  Int? @map("review_scores_accuracy")
+  reviewScoresCleanliness Int? @map("review_scores_cleanliness")
+  reviewScoresCheckin Int? @map("review_scores_checkin")
+  reviewScoresCommunication Int? @map("review_scores_communication")
+  reviewScoresLocation  Int? @map("review_scores_location")
+  reviewScoresValue Int? @map("review_scores_value")
+  reviewScoresRating  Int? @map("review_scores_rating")
+}
+
+type reviews {
+  id    String  @map("_id") @db.ObjectId
+  date  DateTime  
+  listingId  String  @map("listing_id") @db.ObjectId
+  reviewerId String  @map("reviewer_id") @db.ObjectId
+  reviewerName String?  @map("reviewer_name")
+  comments  String?  
+}
+
+//sample_analytics
+model accounts {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  accountId Int     @map("account_id")
+  limit Int
+  products String[]
+}
+
+//sample_guides
+model planets {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  orderFromSun  Int
+  hasRings  Boolean
+  mainAtmosphere  String[]
+  surfaceTemperatureC surfaceTemperatureC
+}
+
+type surfaceTemperatureC {
+  min Int?
+  max Int?
+  mean Int?
+}
+
+//sample_supplies
+model sales {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  saleDate  DateTime
+  items items[]
+  storeLocation String
+  customer  customer
+  couponUsed  Boolean
+  purchaseMethod  String
+}
+
+type items {
+  name  String
+  tags  String[]
+  price Unsupported("Decimal128")
+  quantity  Int
+}
+
+type customer {
+  gender  String?
+  age Int?
+  email String? 
+  satisfaction  Int?
 }
