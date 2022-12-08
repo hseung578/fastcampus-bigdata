@@ -6,7 +6,7 @@ nestjs + prisma + mysql + mongodb + redis
 
 mongodb: mongodb atlas 이용
 
-mysql, redis: 
+mysql, redis: docker compose 이용
 
 post pagination with cursor and offset
 
@@ -28,7 +28,7 @@ $ yarn start:dev
 $ npx prisma migrate dev
 $ npx prisma db seed
 
-// mongodb mongodb atlas
+// mongodb
 $ yarn install
 $ yarn start:dev
 ```
