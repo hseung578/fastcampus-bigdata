@@ -4,7 +4,7 @@ fastcampus 대용량 데이터 & 트래픽 처리
 
 nestjs + prisma + mysql + mongodb + redis
 
-mongodb: mongodb atlas 이용
+mongodb: mongodb atlas (sample data)이용
 
 mysql, redis: docker compose 이용
 
@@ -24,12 +24,14 @@ facebook: pull / twitter: push
 // mysql
 $ yarn install
 $ sudo docker-compose up
+$ npx prisma generate
 $ yarn start:dev
 $ npx prisma migrate dev
 $ npx prisma db seed
 
 // mongodb
 $ yarn install
+$ npx prisma generate
 $ yarn start:dev
 ```
 
