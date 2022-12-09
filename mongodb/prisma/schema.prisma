@@ -170,3 +170,10 @@ type customer {
   email String? 
   satisfaction  Int?
 }
+
+// test for array update
+model shopping {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  cart String[]
+  coupons String[]
+}
