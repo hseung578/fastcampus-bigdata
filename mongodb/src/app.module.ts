@@ -5,6 +5,7 @@ import { ListingsAndReviewsModule } from './listings-and-reviews/listings-and-re
 import { PlanetModule } from './planets/planet.module';
 import { SaleModule } from './sales/sale.module';
 import { ShoppingModule } from './shoppings/shopping.module';
+import { MovieModule } from './movies/movie.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ShoppingModule } from './shoppings/shopping.module';
     PlanetModule,
     SaleModule,
     ShoppingModule,
+    MovieModule,
   ],
   controllers: [AppController],
 })

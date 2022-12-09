@@ -177,3 +177,66 @@ model shopping {
   cart String[]
   coupons String[]
 }
+
+// sample_mflix
+model movies {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  plot  String?
+  genres  String[]
+  runtime Int?
+  rated String?
+  cast  String[]
+  numMflixComments  Int?  @map("num_mflix_comments")
+  poster String?
+  title String
+  fullplot  String?
+  languages String[]
+  released  DateTime?
+  directors String[]
+  writers String[]
+  awards  awards
+  metacritic Int?
+  lastupdated String
+  // year  Int | String
+  // imdb  imdb
+  countries String[]
+  type  String
+  tomatoes  tomatoes?
+}
+
+type awards {
+  wins  Int
+  nominations Int
+  text  String
+}
+
+// type imdb {
+//   rating  Float | String
+//   votes Int  | String
+//   id  Int
+// }
+
+type tomatoes {
+  viewer  viewer?
+  boxOffice String?
+  dvd DateTime?
+  website String?
+  critic  critic?
+  lastUpdated DateTime
+  consensus String?
+  rotten  Int?
+  production  String?
+  fresh Int?
+}
+
+type viewer {
+  rating  Float?
+  numReviews  Int?
+  meter Int?
+}
+
+type critic {
+  rating  Float?
+  numReviews  Int?
+  meter Int?
+}
