@@ -240,3 +240,21 @@ type critic {
   numReviews  Int?
   meter Int?
 }
+
+// test for aggregate
+model orders {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  size String
+  price Int
+  quantity Int
+  date DateTime
+}
+
+// test for aggregate array
+model books {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  author  String
+  copies Int
+}
