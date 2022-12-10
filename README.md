@@ -2,7 +2,7 @@
 
 fastcampus 대용량 데이터 & 트래픽 처리
 
-nestjs + prisma + mysql + mongodb + redis
+nestjs + prisma + mysql + mongodb + redis + swagger
 
 mongodb: mongodb atlas (sample data)이용
 
@@ -36,3 +36,5 @@ $ yarn start:dev
 ```
 
 prisma seed : fake data 100만개
+
+enter http://localhost:3000/api-docs for test!
