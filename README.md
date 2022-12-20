@@ -8,6 +8,8 @@ mongodb: mongodb atlas (sample data)이용
 
 mysql, redis: docker compose 이용
 
+<mysql>
+
 post pagination with cursor and offset
 
 timeline push model vs pull model (trade-off)
@@ -17,6 +19,8 @@ push: 공간복잡도 (timeline table 필요) write 성능저하
 pull: 시간복잡도, follow가 많을 수록 성능 저하 read 성능저하
 
 facebook: pull / twitter: push
+
+Optimistic Lock with prisma (add version row)
 
 ## Installation
 
