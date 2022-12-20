@@ -49,6 +49,7 @@ model Post {
   createDate DateTime @db.Date
   timelines Timeline[]
   likeCount Int @default(0)
+  version Int @default(0)
   createdAt DateTime @default(now())
 
   @@index([memberId, createDate])

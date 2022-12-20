@@ -2,7 +2,11 @@ import {
   GetPostsOffsetQuery,
   GetPostsCursortQuery,
 } from './querys/get-posts.query';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import {
   CreatePostByPullDto,
@@ -101,5 +105,15 @@ export class PostService {
       where,
       data: { likeCount: { increment: 1 } },
     });
+  }
+
+  async increaseWithOptimisticLock(id: number) {
+    const post = await this.prisma.post.findUnique({ where: { id } });
+    if (!post) throw new NotFoundException();
+    const posts = await this.prisma.post.updateMany({
+      where: { id, version: post.version },
+      data: { likeCount: { increment: 1 }, version: { increment: 1 } },
+    });
+    if (posts.count === 0) throw new ConflictException();
   }
 }

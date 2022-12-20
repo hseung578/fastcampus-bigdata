@@ -35,6 +35,12 @@ export class PostController {
     return true;
   }
 
+  @Post(':id/like/optimistic')
+  async likePostWithOptimisticLock(@Param('id', ParseIntPipe) id: number) {
+    await this.postService.increaseWithOptimisticLock(id);
+    return true;
+  }
+
   @Post('pull')
   createPostByPull(@Body() dto: CreatePostByPullDto) {
     return this.postService.createByPull(dto);
