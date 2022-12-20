@@ -20,6 +20,7 @@ model Member {
   followedBy Follow[] @relation("following")
   birthday DateTime
   timelines Timeline[]
+  likes Like[]
   createdAt DateTime @default(now())
 }
 
@@ -48,6 +49,7 @@ model Post {
   contents String
   createDate DateTime @db.Date
   timelines Timeline[]
+  likes Like[]
   likeCount Int @default(0)
   version Int @default(0)
   createdAt DateTime @default(now())
@@ -56,6 +58,16 @@ model Post {
 }
 
 model Timeline {
+  member Member @relation(fields: [memberId], references: [id])
+  memberId Int
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  createdAt DateTime @default(now())
+
+  @@id([memberId, postId])
+}
+
+model Like {
   member Member @relation(fields: [memberId], references: [id])
   memberId Int
   post Post @relation(fields: [postId], references: [id])

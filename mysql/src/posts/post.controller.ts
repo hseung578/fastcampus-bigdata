@@ -19,6 +19,7 @@ import {
   GetPostsOffsetQuery,
 } from './querys/get-posts.query';
 import { FollowService } from 'src/follows/follow.service';
+import { LikeService } from 'src/likes/like.service';
 
 @Controller('posts')
 @ApiTags('Post')
@@ -27,11 +28,21 @@ export class PostController {
     private readonly postService: PostService,
     private readonly followService: FollowService,
     private readonly timelineService: TimelineService,
+    private readonly likeService: LikeService,
   ) {}
 
-  @Post(':id/like')
+  @Post(':id/like/v1')
   async likePost(@Param('id', ParseIntPipe) id: number) {
     await this.postService.increase({ id });
+    return true;
+  }
+
+  @Post(':id/like/v2/:userId')
+  async likePostWithTable(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('userId', ParseIntPipe) userId: number,
+  ) {
+    await this.likeService.create(id, userId);
     return true;
   }
 

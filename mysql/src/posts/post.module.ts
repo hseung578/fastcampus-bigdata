@@ -4,9 +4,10 @@ import { PrismaService } from './../prisma.service';
 import { Module } from '@nestjs/common';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
+import { LikeModule } from 'src/likes/like.module';
 
 @Module({
-  imports: [FollowModule, TimelineModule],
+  imports: [FollowModule, TimelineModule, LikeModule],
   controllers: [PostController],
   providers: [PostService, PrismaService],
   exports: [PostService],

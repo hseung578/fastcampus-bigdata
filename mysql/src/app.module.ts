@@ -7,6 +7,7 @@ import { FollowModule } from './follows/follow.module';
 import { PostModule } from './posts/post.module';
 import { NicknameHistoryModule } from './nickname-historys/nickname-history.module';
 import { TimelineModule } from './timelines/timeline.module';
+import { LikeModule } from './likes/like.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TimelineModule } from './timelines/timeline.module';
     FollowModule,
     PostModule,
     TimelineModule,
+    LikeModule,
   ],
 
   controllers: [AppController],
