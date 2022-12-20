@@ -2,12 +2,13 @@ import {
   GetPostsOffsetQuery,
   GetPostsCursortQuery,
 } from './querys/get-posts.query';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import {
   CreatePostByPullDto,
   CreatePostByPushDto,
 } from './dtos/create-post.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class PostService {
@@ -91,5 +92,14 @@ export class PostService {
 
   async count() {
     return await this.prisma.post.count();
+  }
+
+  async increase(where: Prisma.PostWhereUniqueInput) {
+    const post = await this.prisma.post.findUnique({ where });
+    if (!post) throw new NotFoundException();
+    await this.prisma.post.update({
+      where,
+      data: { likeCount: { increment: 1 } },
+    });
   }
 }

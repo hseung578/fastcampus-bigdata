@@ -3,7 +3,15 @@ import {
   CreatePostByPullDto,
   CreatePostByPushDto,
 } from './dtos/create-post.dto';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { PostService } from './post.service';
 import {
@@ -20,6 +28,12 @@ export class PostController {
     private readonly followService: FollowService,
     private readonly timelineService: TimelineService,
   ) {}
+
+  @Post(':id/like')
+  async likePost(@Param('id', ParseIntPipe) id: number) {
+    await this.postService.increase({ id });
+    return true;
+  }
 
   @Post('pull')
   createPostByPull(@Body() dto: CreatePostByPullDto) {
@@ -53,7 +67,7 @@ export class PostController {
     example: 10,
   })
   getPostsByOffset(
-    @Param('memberId') memberId: number,
+    @Param('memberId', ParseIntPipe) memberId: number,
     @Query() queryParams: GetPostsOffsetQuery,
   ) {
     return this.postService.findAllByOffset(memberId, { ...queryParams });
@@ -78,7 +92,7 @@ export class PostController {
     example: 10,
   })
   getPostsByCursor(
-    @Param('memberId') memberId: number,
+    @Param('memberId', ParseIntPipe) memberId: number,
     @Query() queryParams: GetPostsCursortQuery,
   ) {
     return this.postService.findAllByPullCursor([memberId], { ...queryParams });
@@ -103,7 +117,7 @@ export class PostController {
     example: 10,
   })
   async getTimelinesByPull(
-    @Param('memberId') memberId: number,
+    @Param('memberId', ParseIntPipe) memberId: number,
     @Query() queryParams: GetPostsCursortQuery,
   ) {
     const followings = await this.followService.findAllwithFromId(memberId);
@@ -132,7 +146,7 @@ export class PostController {
     example: 10,
   })
   async getTimelinesByPush(
-    @Param('memberId') memberId: number,
+    @Param('memberId', ParseIntPipe) memberId: number,
     @Query() queryParams: GetPostsCursortQuery,
   ) {
     const timelines = await this.timelineService.findAll(memberId);
