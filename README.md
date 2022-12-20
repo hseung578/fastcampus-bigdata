@@ -8,7 +8,7 @@ mongodb: mongodb atlas (sample data)이용
 
 mysql, redis: docker compose 이용
 
-<mysql>
+< mysql >
 
 post pagination with cursor and offset
 
