@@ -8,19 +8,31 @@ mongodb: mongodb atlas (sample data)이용
 
 mysql, redis: docker compose 이용
 
-< mysql >
+#### mysql
 
-post pagination with cursor and offset
+##### post pagination with cursor and offset
 
-timeline push model vs pull model (trade-off)
+##### timeline push model vs pull model (trade-off)
 
-push: 공간복잡도 (timeline table 필요) write 성능저하
+1. push: 공간복잡도, timeline table 필요 (write performance degradation)
 
-pull: 시간복잡도, follow가 많을 수록 성능 저하 read 성능저하
+2. pull: 시간복잡도, follow가 많을 수록 성능 저하 (read performance degradation)
 
 facebook: pull / twitter: push
 
-Optimistic Lock with prisma (add version row)
+##### like model (trade-off)
+
+1. Optimistic Lock with prisma (add version row)
+
+좋아요 누르면 likeCount + 1 (write performance degradation)
+
+2. like with Table
+
+좋아요 누르면 like table에 insert (read performance degradation)
+
+일정 시간마다 like table에 있는 정보로 db에 likeCount update (fix performance degradation)
+
+(nestjs/schedule, update every seconds)
 
 ## Installation
 

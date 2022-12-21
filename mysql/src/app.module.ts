@@ -7,6 +7,7 @@ import { PostModule } from './posts/post.module';
 import { NicknameHistoryModule } from './nickname-historys/nickname-history.module';
 import { TimelineModule } from './timelines/timeline.module';
 import { LikeModule } from './likes/like.module';
+import { TaskModule } from './tasks/task.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { LikeModule } from './likes/like.module';
     PostModule,
     TimelineModule,
     LikeModule,
+    TaskModule,
   ],
   controllers: [AppController],
 })
