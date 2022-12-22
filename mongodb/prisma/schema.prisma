@@ -258,3 +258,20 @@ model books {
   author  String
   copies Int
 }
+
+// sample_training
+model zips {
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  city String
+  zip String
+  loc loc
+  pop Int
+  state String
+
+  @@index([state(sort: Asc)])
+}
+
+type loc {
+  x Float
+  y Float
+}

@@ -8,6 +8,7 @@ import { ShoppingModule } from './shoppings/shopping.module';
 import { MovieModule } from './movies/movie.module';
 import { OrderModule } from './orders/order.module';
 import { BookModule } from './books/book.module';
+import { ZipModule } from './zips/zip.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { BookModule } from './books/book.module';
     MovieModule,
     OrderModule,
     BookModule,
+    ZipModule,
   ],
   controllers: [AppController],
 })
