@@ -8,6 +8,7 @@ import { NicknameHistoryModule } from './nickname-historys/nickname-history.modu
 import { TimelineModule } from './timelines/timeline.module';
 import { LikeModule } from './likes/like.module';
 import { TaskModule } from './tasks/task.module';
+import { CacheModule } from './cache/cache.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TaskModule } from './tasks/task.module';
     TimelineModule,
     LikeModule,
     TaskModule,
+    CacheModule,
   ],
   controllers: [AppController],
 })

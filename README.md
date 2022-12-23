@@ -37,7 +37,7 @@ facebook: pull / twitter: push
 ## Installation
 
 ```bash
-// mysql
+// mysql & redis
 $ yarn install
 $ sudo docker-compose up
 $ npx prisma generate
