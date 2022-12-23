@@ -35,6 +35,8 @@ Facebook: pull / Twitter: push
 
 ### Redis
 
+Ranking / Chat module
+
 #### Cache
 
 1. look aside cache (일반적인 cache 기능)
