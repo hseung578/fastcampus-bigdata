@@ -67,9 +67,14 @@ Use Case
 4. Subscriber들이 다양한 채널을 유동적으로 바꾸면서 한시적으로 구독하는 경우
 
 redis port: 6379
+
 server port: 3000
+
 client port: 3001
+
 client2 port: 3002 포트번호는 원하는데로 해도 상관없다
+
+
 issue: 메시지가 받는 부분에서 에러 존재 추후 업데이트 예정
 
 ## Installation
