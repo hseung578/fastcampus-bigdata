@@ -35,18 +35,16 @@ Facebook: pull / Twitter: push
 
 ### Redis
 
-Ranking / Chat module
-
 #### Cache
 
 1. look aside cache (일반적인 cache 기능)
 2. write back (쓰기가 많은 경우 ex. log)
 
-#### Leaderboard with sorted set type
+#### Leaderboard with sorted set type - ranking in Mysql folder
 
 fast update, fast lookup
 
-#### Pub/Sub (messaging middleware)
+#### Pub/Sub (messaging middleware) - chat
 
 Benefits of messaging middleware
 
@@ -68,10 +66,16 @@ Use Case
 3. 최대 1회 전송 패턴이 적합한 경우
 4. Subscriber들이 다양한 채널을 유동적으로 바꾸면서 한시적으로 구독하는 경우
 
+redis port: 6379
+server port: 3000
+client port: 3001
+client2 port: 3002 포트번호는 원하는데로 해도 상관없다
+issue: 메시지가 받는 부분에서 에러 존재 추후 업데이트 예정
+
 ## Installation
 
-```bash
-// mysql & redis
+```
+// Mysql Folder
 $ yarn install
 $ sudo docker-compose up
 $ npx prisma generate
@@ -79,10 +83,22 @@ $ yarn start:dev
 $ npx prisma migrate dev
 $ npx prisma db seed
 
-// mongodb
+// Mongodb Folder
 $ yarn install
 $ npx prisma generate
 $ yarn start:dev
+
+// redis-chat & chat Folder
+1. redis-chat
+$ yarn install
+$ sudo docker-compose up
+$ yarn start:dev
+2. chat
+$ yarn install
+$ yarn start
+3. chat (another terminal)
+$ yarn install
+$ yarn start
 ```
 
 prisma seed : fake data 100만개
